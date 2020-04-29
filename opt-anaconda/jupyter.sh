@@ -7,14 +7,17 @@ conda activate
 
 conda info
 
+# Main gets form grader and create assignment
+
+# Everybody gets validation
+
+jupyter nbextension enable --user validate_assignment/main --section=notebook
+jupyter serverextension enable --user nbgrader.server_extensions.validate_assignment
+
+# Only the main grader gets formgrader and assignment list
 if [[ "$USER" =~ ^(ashriram|diana|bobbyc)$ ]]; then
 
-    jupyter nbextension enable --user formgrader/main --section=tree
-
-    jupyter serverextension enable --user nbgrader.server_extensions.formgrader
-
-    jupyter nbextension enable --user create_assignment/main
-
+# Instructors get assignment list and course list
     jupyter nbextension enable --user assignment_list/main --section=tree
 
     jupyter serverextension enable --user nbgrader.server_extensions.assignment_list
@@ -23,16 +26,11 @@ if [[ "$USER" =~ ^(ashriram|diana|bobbyc)$ ]]; then
 
     jupyter serverextension enable --user nbgrader.server_extensions.course_list
 else
-    jupyter serverextension enable --user nbgrader.server_extensions.formgrader
-
-    jupyter nbextension enable --user assignment_list/main --section=tree
+# Students get assignment list only
+     jupyter nbextension enable --user assignment_list/main --section=tree
 
     jupyter serverextension enable --user nbgrader.server_extensions.assignment_list
 
-    jupyter nbextension enable --user course_list/main --section=tree
-
-    jupyter serverextension enable --user nbgrader.server_extensions.course_list
-    
 fi
 
 
